@@ -6,17 +6,8 @@ const TechListModal = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getTechs();
+    // getTechs();
   }, []);
-
-  const getTechs = async () => {
-    setLoading(true);
-    const res = await fetch("/techs");
-    const data = await res.json();
-
-    setTechs(data);
-    setLoading(false);
-  };
 
   return (
     <div id="tech-list-modal" className="modal">

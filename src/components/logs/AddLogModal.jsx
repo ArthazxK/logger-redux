@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
+import { useDispatch } from "react-redux";
+import { addBug } from "../../store/logs";
 
 const AddLogModal = () => {
+  const dispatch = useDispatch();
+
   const [message, setMessage] = useState("");
   const [attention, setAttention] = useState(false);
   const [tech, setTech] = useState("");
@@ -9,7 +13,17 @@ const AddLogModal = () => {
   const onSubmit = () => {
     if (message === "" || tech === "")
       return M.toast({ html: "Please enter a message and tech" });
-    console.log(message, tech, attention);
+    const date = Date.now();
+    const newLog = {
+      message,
+      tech,
+      attention,
+      date,
+    };
+
+    M.toast({ html: `Log added by ${tech}` });
+    dispatch(addBug(newLog));
+
     setMessage("");
     setAttention(false);
     setTech("");

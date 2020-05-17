@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan, apiCallSuccess, apiCallFailed } from "./api";
+import { apiCallBegan } from "./api";
 
 // Reducer
 
@@ -32,6 +32,10 @@ const slice = createSlice({
       const index = logs.list.findIndex((log) => log.id === action.payload);
       logs.list.splice(index, 1);
     },
+
+    currentAdded: (logs, action) => {
+      logs.current = action.payload;
+    },
   },
 });
 
@@ -40,6 +44,8 @@ export const {
   logsReceived,
   logAdded,
   logsRequestFailed,
+  logDeleted,
+  currentAdded,
 } = slice.actions;
 
 export default slice.reducer;
@@ -61,3 +67,12 @@ export const addBug = (bug) =>
     onSuccess: logAdded.type,
     data: bug,
   });
+
+export const deleteBug = (id) =>
+  apiCallBegan({
+    url: `/logs/${id}`,
+    method: "delete",
+    onSuccess: logDeleted.type,
+  });
+
+export const selectCurrent = (state) => state.entities.logs.current;
