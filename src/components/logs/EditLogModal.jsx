@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCurrent, editBug } from "../../store/logs";
+import { selectCurrent, editLog } from "../../store/logs";
+import TechOption from "../techs/TechOption";
 
 const EditLogModal = () => {
   const current = useSelector(selectCurrent);
@@ -30,7 +31,7 @@ const EditLogModal = () => {
       date: Date.now(),
     };
 
-    dispatch(editBug(updatedLog));
+    dispatch(editLog(updatedLog));
     M.toast({ html: `Edited by ${tech} ` });
 
     // Clear fields
@@ -64,9 +65,7 @@ const EditLogModal = () => {
               <option value="" disabled>
                 Select Technician
               </option>
-              <option value="John Doe">John Doe</option>
-              <option value="Fuck You">Fuck You</option>
-              <option value="Baby Bitch">Baby Bitch</option>
+              <TechOption />
             </select>
           </div>
         </div>

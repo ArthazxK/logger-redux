@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
 import { useDispatch } from "react-redux";
-import { addBug } from "../../store/logs";
+import { addLog } from "../../store/logs";
+
+import TechOption from "../techs/TechOption";
 
 const AddLogModal = () => {
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ const AddLogModal = () => {
     };
 
     M.toast({ html: `Log added by ${tech}` });
-    dispatch(addBug(newLog));
+    dispatch(addLog(newLog));
 
     setMessage("");
     setAttention(false);
@@ -57,9 +59,7 @@ const AddLogModal = () => {
               <option value="" disabled>
                 Select Technician
               </option>
-              <option value="John Doe">John Doe</option>
-              <option value="Fuck You">Fuck You</option>
-              <option value="Baby Bitch">Baby Bitch</option>
+              <TechOption />
             </select>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
-import { techAdded } from "../../store/techs";
+import { addTech } from "../../store/techs";
 import { useDispatch } from "react-redux";
 
 const AddTechModal = () => {
@@ -12,14 +12,13 @@ const AddTechModal = () => {
   const onSubmit = () => {
     if (firstName === "" || lastName === "")
       return M.toast({ html: "Please enter firts and last name" });
-    console.log(firstName, lastName);
 
     const tech = {
       firstName,
       lastName,
     };
 
-    dispatch(techAdded(tech));
+    dispatch(addTech(tech));
     M.toast({ html: "Tech added to the list." });
 
     setFirstName("");

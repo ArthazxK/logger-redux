@@ -2,13 +2,13 @@ import React from "react";
 import Moment from "react-moment";
 import M from "materialize-css/dist/js/materialize.min.js";
 import { useDispatch } from "react-redux";
-import { deleteBug, currentAdded } from "../../store/logs";
+import { deleteLog, currentAdded } from "../../store/logs";
 
 const LogItem = ({ log }) => {
   const dispatch = useDispatch();
 
   const onDelete = () => {
-    dispatch(deleteBug(log.id));
+    dispatch(deleteLog(log.id));
     M.toast({ html: "Log Deleted." });
   };
   const addCurrent = () => dispatch(currentAdded(log));

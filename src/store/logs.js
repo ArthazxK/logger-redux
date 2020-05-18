@@ -64,7 +64,7 @@ export const getLogs = () =>
     onError: logsRequestFailed.type,
   });
 
-export const addBug = (log) =>
+export const addLog = (log) =>
   apiCallBegan({
     url,
     method: "post",
@@ -72,14 +72,14 @@ export const addBug = (log) =>
     data: log,
   });
 
-export const deleteBug = (id) =>
+export const deleteLog = (id) =>
   apiCallBegan({
     url: `/logs/${id}`,
     method: "delete",
     onSuccess: logDeleted.type,
   });
 
-export const editBug = (log) =>
+export const editLog = (log) =>
   apiCallBegan({
     url: `/logs/${log.id}`,
     method: "put",

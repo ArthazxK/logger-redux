@@ -22,6 +22,10 @@ const slice = createSlice({
     techAdded: (techs, action) => {
       techs.list.push(action.payload);
     },
+    techDeleted: (techs, action) => {
+      const index = techs.list.findIndex((tech) => tech.id === action.payload);
+      techs.list.splice(index, 1);
+    },
   },
 });
 
@@ -32,6 +36,7 @@ export const {
   techsReceived,
   techRequestFailed,
   techAdded,
+  techDeleted,
 } = slice.actions;
 
 export const getTechs = () =>
@@ -50,6 +55,15 @@ export const addTech = (tech) =>
     onSuccess: techAdded.type,
   });
 
+export const deleteTech = (id) =>
+  apiCallBegan({
+    url: `techs/${id}`,
+    method: "delete",
+    onSuccess: techDeleted.type,
+  });
+
 //   Selectors
 
 export const selectTechs = (state) => state.entities.techs;
+
+export const selectTechsList = (state) => state.entities.techs.list;
