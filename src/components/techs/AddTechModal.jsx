@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
+import { techAdded } from "../../store/techs";
+import { useDispatch } from "react-redux";
 
 const AddTechModal = () => {
+  const dispatch = useDispatch();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -9,8 +13,17 @@ const AddTechModal = () => {
     if (firstName === "" || lastName === "")
       return M.toast({ html: "Please enter firts and last name" });
     console.log(firstName, lastName);
-    firstName("");
-    lastName("");
+
+    const tech = {
+      firstName,
+      lastName,
+    };
+
+    dispatch(techAdded(tech));
+    M.toast({ html: "Tech added to the list." });
+
+    setFirstName("");
+    setLastName("");
   };
 
   return (
@@ -35,7 +48,7 @@ const AddTechModal = () => {
             <input
               type="text"
               name="lastName"
-              value={firstName}
+              value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
             <label htmlFor="lastName" className="active">

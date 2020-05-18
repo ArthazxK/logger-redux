@@ -9,7 +9,6 @@ const slice = createSlice({
     list: [],
     loading: false,
     current: null,
-    lastFetch: null,
     error: null,
   },
   reducers: {
@@ -22,7 +21,6 @@ const slice = createSlice({
     logsReceived: (logs, action) => {
       logs.list = action.payload;
       logs.loading = false;
-      logs.lastFetch = Date.now();
     },
     logAdded: (logs, action) => {
       logs.list.push(action.payload);
@@ -31,6 +29,11 @@ const slice = createSlice({
     logDeleted: (logs, action) => {
       const index = logs.list.findIndex((log) => log.id === action.payload);
       logs.list.splice(index, 1);
+    },
+
+    logEdited: (logs, action) => {
+      const index = logs.list.findIndex((log) => log.id === action.payload.id);
+      logs.list[index] = action.payload;
     },
 
     currentAdded: (logs, action) => {
@@ -46,6 +49,7 @@ export const {
   logsRequestFailed,
   logDeleted,
   currentAdded,
+  logEdited,
 } = slice.actions;
 
 export default slice.reducer;
@@ -60,12 +64,12 @@ export const getLogs = () =>
     onError: logsRequestFailed.type,
   });
 
-export const addBug = (bug) =>
+export const addBug = (log) =>
   apiCallBegan({
     url,
     method: "post",
     onSuccess: logAdded.type,
-    data: bug,
+    data: log,
   });
 
 export const deleteBug = (id) =>
@@ -74,5 +78,15 @@ export const deleteBug = (id) =>
     method: "delete",
     onSuccess: logDeleted.type,
   });
+
+export const editBug = (log) =>
+  apiCallBegan({
+    url: `/logs/${log.id}`,
+    method: "put",
+    data: log,
+    onSuccess: logEdited.type,
+  });
+
+// Selectors
 
 export const selectCurrent = (state) => state.entities.logs.current;

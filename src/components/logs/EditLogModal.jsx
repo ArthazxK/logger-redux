@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
-import { useSelector, connect } from "react-redux";
-import { selectCurrent } from "../../store/logs";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCurrent, editBug } from "../../store/logs";
 
 const EditLogModal = () => {
   const current = useSelector(selectCurrent);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!current) return;
@@ -12,6 +13,7 @@ const EditLogModal = () => {
     setAttention(current.attention);
     setTech(current.tech);
   }, [current]);
+
   const [message, setMessage] = useState("");
   const [attention, setAttention] = useState(false);
   const [tech, setTech] = useState("");
@@ -21,12 +23,15 @@ const EditLogModal = () => {
       return M.toast({ html: "Please enter a message and tech" });
 
     const updatedLog = {
+      id: current.id,
       message,
       tech,
       attention,
       date: Date.now(),
     };
-    console.log(message, tech, attention);
+
+    dispatch(editBug(updatedLog));
+    M.toast({ html: `Edited by ${tech} ` });
 
     // Clear fields
     setMessage("");
@@ -100,11 +105,4 @@ const modalStyle = {
   width: "75%",
   height: "75%",
 };
-
-const mapStateToProps = (state) => ({
-  current: selectCurrent(state),
-});
-
-// export default connect(mapStateToProps)(EditLogModal);
-
 export default EditLogModal;

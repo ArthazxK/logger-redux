@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import TechItem from "./TechItem";
+import { useDispatch, useSelector } from "react-redux";
+import { getTechs, selectTechs } from "../../store/techs";
+import Preloader from "../layout/Preloader";
 
 const TechListModal = () => {
-  const [techs, setTechs] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const data = useSelector(selectTechs);
+  const { loading, list: techs } = data;
 
   useEffect(() => {
-    // getTechs();
+    dispatch(getTechs());
   }, []);
 
   return (
