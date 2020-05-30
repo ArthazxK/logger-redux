@@ -7,6 +7,7 @@ const slice = createSlice({
   name: "logs",
   initialState: {
     list: [],
+    searchLog: null,
     loading: false,
     current: null,
     error: null,
@@ -36,6 +37,10 @@ const slice = createSlice({
       logs.list[index] = action.payload;
     },
 
+    logSearched: (logs, action) => {
+      logs.searchLog = action.payload;
+    },
+
     currentAdded: (logs, action) => {
       logs.current = action.payload;
     },
@@ -50,6 +55,7 @@ export const {
   logDeleted,
   currentAdded,
   logEdited,
+  logSearched,
 } = slice.actions;
 
 export default slice.reducer;

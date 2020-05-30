@@ -10,16 +10,16 @@
     {
       "id": 2,
       "message": "Fixed hard drive on workstation 002",
-      "attention": false,
       "tech": "John Doe",
-      "date": "2019-05-31T16:18:04.245Z"
+      "attention": false,
+      "date": 1590802711382
     },
     {
+      "id": 3,
       "message": "1122 wireless down",
-      "attention": true,
       "tech": "Sara Wilson",
-      "date": "2019-05-31T15:46:48.690Z",
-      "id": 3
+      "attention": true,
+      "date": 1590802705544
     },
     {
       "id": 4,
@@ -27,13 +27,6 @@
       "tech": "Sam Smith",
       "attention": false,
       "date": 1589815422133
-    },
-    {
-      "message": "new log",
-      "tech": "Joe Something",
-      "attention": true,
-      "date": 1589815234535,
-      "id": 5
     }
   ],
   "techs": [
