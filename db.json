@@ -25,8 +25,8 @@
       "id": 4,
       "message": "Workstation 026 is up and running",
       "tech": "Sara Wilson",
-      "attention": true,
-      "date": 1590864463770
+      "attention": false,
+      "date": 1590872827454
     }
   ],
   "techs": [

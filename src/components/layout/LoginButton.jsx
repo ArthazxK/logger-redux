@@ -9,7 +9,7 @@ const LoginButton = () => {
     !currentTech && (
       <div className="fixed-action-btn">
         <a
-          href="#login-tech-modal"
+          href="#login2-tech-modal"
           className="btn-floating btn-large blue dark-2 modal-trigger tooltipped"
           data-position="left"
           data-tooltip="login"

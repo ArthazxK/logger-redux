@@ -13,9 +13,9 @@ import EditLogModal from "./components/logs/EditLogModal";
 import AddTechModal from "./components/techs/AddTechModal";
 import TechListModal from "./components/techs/TechListModal";
 import LoginButton from "./components/layout/LoginButton";
-import TechLoginModal from "./components/techs/TechLoginModal";
 
 import configureStore from "./store/configureStore";
+import LoginTechModal from "./components/techs/LoginTechModal";
 
 const App = () => {
   const store = configureStore();
@@ -34,7 +34,7 @@ const App = () => {
           <AddLogModal />
           <EditLogModal />
           <AddTechModal />
-          <TechLoginModal />
+          <LoginTechModal />
           <TechListModal />
           <Logs />
         </div>
