@@ -1,28 +1,49 @@
 import React, { useState } from "react";
+import Joi from "joi-browser";
 import M from "materialize-css/dist/js/materialize.min.js";
 import { techLoggedIn } from "../../store/techs";
 import { useDispatch } from "react-redux";
+import { validate, validateProperty } from "../../utils/validation";
 
 const TechLoginModal = () => {
   const dispatch = useDispatch();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [data, setData] = useState({
+    username: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({});
+  const { username, password } = data;
 
-  const onSubmit = () => {
-    if (username === "" || password === "")
-      return M.toast({ html: "Please enter username and password" });
+  const schema = {
+    username: Joi.string().email().min(5).max(30).required().label("Username"),
+    password: Joi.string().min(5).max(30).required().label("Password"),
+  };
 
-    const tech = {
-      username,
-      password,
-    };
-    dispatch(techLoggedIn(tech));
+  const handleChange = ({ target: { name, value } }) => {
+    const error = { ...errors };
+    const errorMessage = validateProperty(name, value, schema);
+    if (errorMessage) error[name] = errorMessage;
+    else delete error[name];
+    setData({ ...data, [name]: value });
+    setErrors(error);
+  };
 
-    M.toast({ html: "Tech added to the list." });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const errors = validate(data, schema);
 
-    setUsername("");
-    setPassword("");
+    if (errors !== null) return setErrors(errors);
+
+    dispatch(techLoggedIn(data));
+
+    M.toast({ html: "Logged In" });
+
+    setData({
+      username: "",
+      password: "",
+    });
+    setErrors(null);
   };
 
   return (
@@ -35,36 +56,40 @@ const TechLoginModal = () => {
               type="text"
               name="username"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={handleChange}
             />
             <label htmlFor="username" className="active">
               Username
             </label>
+            {errors && errors.username && <div>{errors.username}</div>}
           </div>
         </div>
         <div className="row">
           <div className="input-field">
             <input
-              type="text"
+              type="password"
               name="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
             />
             <label htmlFor="password" className="active">
               Password
             </label>
+            {errors && errors.password && <div>{errors.password}</div>}
           </div>
         </div>
       </div>
       <div className="modal-footer">
-        <a
-          href="#!"
+        <button
           onClick={onSubmit}
-          className="modal-close waves-effect waves-light blue
-        btn"
+          className="btn waves-effect waves-light blue modal-close"
+          type="submit"
+          name="action"
+          disabled={validate(data, schema)}
         >
-          Enter
-        </a>
+          Submit
+          <i className="material-icons right">send</i>
+        </button>
       </div>
     </div>
   );

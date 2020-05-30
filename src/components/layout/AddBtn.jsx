@@ -1,10 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { selectCurrentTech } from "../../store/techs";
 
 const AddBtn = () => {
-  const currentTech = useSelector(selectCurrentTech);
-
   return (
     <div className="fixed-action-btn">
       <a
