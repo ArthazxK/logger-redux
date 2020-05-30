@@ -5,12 +5,13 @@ import { getTechs, selectTechs } from "../../store/techs";
 
 const TechListModal = () => {
   const dispatch = useDispatch();
-  const data = useSelector(selectTechs);
-  const { loading, list: techs } = data;
 
   useEffect(() => {
     dispatch(getTechs());
   }, []);
+
+  const data = useSelector(selectTechs);
+  const { loading, list: techs } = data;
 
   return (
     <div id="tech-list-modal" className="modal">

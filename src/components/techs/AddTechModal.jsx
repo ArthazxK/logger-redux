@@ -28,7 +28,7 @@ const AddTechModal = () => {
   return (
     <div id="add-tech-modal" className="modal">
       <div className="modal-content">
-        <h4>Log in</h4>
+        <h4>Add Tech</h4>
         <div className="row">
           <div className="input-field">
             <input

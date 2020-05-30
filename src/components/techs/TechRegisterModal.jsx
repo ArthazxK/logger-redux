@@ -1,53 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
+import useForm from "../common/useForm";
+import { useDispatch } from "react-redux";
 import Joi from "joi-browser";
 import M from "materialize-css/dist/js/materialize.min.js";
-import { techLoggedIn } from "../../store/techs";
-import { useDispatch } from "react-redux";
-import { validate, validateProperty } from "../../utils/validation";
+import { techRegistered } from "../../store/techs";
+import { validate } from "../../utils/validation";
 
-const TechLoginModal = () => {
+const TechRegisterModal = () => {
   const dispatch = useDispatch();
-
-  const [data, setData] = useState({
-    username: "",
-    password: "",
-  });
-  const [errors, setErrors] = useState({});
-  const { username, password } = data;
-
   const schema = {
     username: Joi.string().email().min(5).max(30).required().label("Username"),
     password: Joi.string().min(5).max(30).required().label("Password"),
+    name: Joi.string().min(5).max(30).required().label("Name"),
   };
-
-  const handleChange = ({ target: { name, value } }) => {
-    const error = { ...errors };
-    const errorMessage = validateProperty(name, value, schema);
-    if (errorMessage) error[name] = errorMessage;
-    else delete error[name];
-    setData({ ...data, [name]: value });
-    setErrors(error);
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const errors = validate(data, schema);
-
-    if (errors !== null) return setErrors(errors);
-
-    dispatch(techLoggedIn(data));
-
-    M.toast({ html: "Logged In" });
-
-    setData({
+  const { data, handleSubmit, handleChange, errors } = useForm({
+    initialData: {
       username: "",
       password: "",
-    });
-    setErrors(null);
-  };
+      name: "",
+    },
+    onSubmit(data) {
+      dispatch(techRegistered(data));
+      M.toast({ html: "Registered", classes: "green" });
+    },
+    schema,
+  });
+
+  const { username, password, name } = data;
 
   return (
-    <div id="login-tech-modal" className="modal">
+    <div id="register-tech-modal" className="modal">
       <div className="modal-content">
         <h4>Login</h4>
         <div className="row">
@@ -78,10 +60,24 @@ const TechLoginModal = () => {
             {errors && errors.password && <div>{errors.password}</div>}
           </div>
         </div>
+        <div className="row">
+          <div className="input-field">
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={handleChange}
+            />
+            <label htmlFor="name" className="active">
+              Name
+            </label>
+            {errors && errors.name && <div>{errors.name}</div>}
+          </div>
+        </div>
       </div>
       <div className="modal-footer">
         <button
-          onClick={onSubmit}
+          onClick={handleSubmit}
           className="btn waves-effect waves-light blue modal-close"
           type="submit"
           name="action"
@@ -95,4 +91,4 @@ const TechLoginModal = () => {
   );
 };
 
-export default TechLoginModal;
+export default TechRegisterModal;

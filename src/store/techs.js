@@ -30,6 +30,9 @@ const slice = createSlice({
     techLoggedIn: (techs, action) => {
       techs.currentTech = action.payload;
     },
+    techRegistered: (techs, action) => {
+      techs.currentTech = action.payload;
+    },
   },
 });
 
@@ -42,6 +45,7 @@ export const {
   techAdded,
   techDeleted,
   techLoggedIn,
+  techRegistered,
 } = slice.actions;
 
 export const getTechs = () =>

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import Joi from "joi-browser";
 import M from "materialize-css/dist/js/materialize.min.js";
 import { techLoggedIn } from "../../store/techs";
-import { validate, validateProperty } from "../../utils/validation";
+import { validate } from "../../utils/validation";
 
 const LoginTechModal = () => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const LoginTechModal = () => {
   const { username, password } = data;
 
   return (
-    <div id="login2-tech-modal" className="modal">
+    <div id="login-tech-modal" className="modal">
       <div className="modal-content">
         <h4>Login</h4>
         <div className="row">

@@ -22,10 +22,6 @@ const useForm = ({ initialData, onSubmit, schema }) => {
 
     onSubmit(data);
 
-    setData({
-      username: "",
-      password: "",
-    });
     setErrors(null);
   };
   return {
@@ -33,7 +29,6 @@ const useForm = ({ initialData, onSubmit, schema }) => {
     errors,
     handleChange,
     handleSubmit,
-    errors,
   };
 };
 
