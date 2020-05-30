@@ -5,6 +5,7 @@ const slice = createSlice({
   name: "techs",
   initialState: {
     list: [],
+    currentTech: null,
     loading: false,
     error: null,
   },
@@ -26,6 +27,9 @@ const slice = createSlice({
       const index = techs.list.findIndex((tech) => tech.id === action.payload);
       techs.list.splice(index, 1);
     },
+    techLoggedIn: (techs, action) => {
+      techs.currentTech = action.payload;
+    },
   },
 });
 
@@ -37,6 +41,7 @@ export const {
   techRequestFailed,
   techAdded,
   techDeleted,
+  techLoggedIn,
 } = slice.actions;
 
 export const getTechs = () =>
@@ -67,3 +72,5 @@ export const deleteTech = (id) =>
 export const selectTechs = (state) => state.entities.techs;
 
 export const selectTechsList = (state) => state.entities.techs.list;
+
+export const selectCurrentTech = (state) => state.entities.techs.currentTech;

@@ -1,44 +1,44 @@
 import React, { useState } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
-import { addTech } from "../../store/techs";
+import { techLoggedIn } from "../../store/techs";
 import { useDispatch } from "react-redux";
 
-const AddTechModal = () => {
+const TechLoginModal = () => {
   const dispatch = useDispatch();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const onSubmit = () => {
-    if (firstName === "" || lastName === "")
-      return M.toast({ html: "Please enter firts and last name" });
+    if (username === "" || password === "")
+      return M.toast({ html: "Please enter username and password" });
 
     const tech = {
-      firstName,
-      lastName,
+      username,
+      password,
     };
+    dispatch(techLoggedIn(tech));
 
-    dispatch(addTech(tech));
     M.toast({ html: "Tech added to the list." });
 
-    setFirstName("");
-    setLastName("");
+    setUsername("");
+    setPassword("");
   };
 
   return (
-    <div id="add-tech-modal" className="modal">
+    <div id="login-tech-modal" className="modal">
       <div className="modal-content">
-        <h4>Log in</h4>
+        <h4>Login</h4>
         <div className="row">
           <div className="input-field">
             <input
               type="text"
-              name="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
-            <label htmlFor="firstName" className="active">
-              First Name
+            <label htmlFor="username" className="active">
+              Username
             </label>
           </div>
         </div>
@@ -46,12 +46,12 @@ const AddTechModal = () => {
           <div className="input-field">
             <input
               type="text"
-              name="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <label htmlFor="lastName" className="active">
-              Last Name
+            <label htmlFor="password" className="active">
+              Password
             </label>
           </div>
         </div>
@@ -70,4 +70,4 @@ const AddTechModal = () => {
   );
 };
 
-export default AddTechModal;
+export default TechLoginModal;

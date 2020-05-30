@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { logSearched } from "../../store/logs";
 
-export const SeachBar = () => {
+const SeachBar = () => {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
 
@@ -34,3 +34,5 @@ export const SeachBar = () => {
     </nav>
   );
 };
+
+export default SeachBar;

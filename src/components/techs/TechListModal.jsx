@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import TechItem from "./TechItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getTechs, selectTechs } from "../../store/techs";
-import Preloader from "../layout/Preloader";
 
 const TechListModal = () => {
   const dispatch = useDispatch();
