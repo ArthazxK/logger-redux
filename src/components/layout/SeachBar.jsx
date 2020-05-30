@@ -21,6 +21,7 @@ export const SeachBar = () => {
               type="search"
               value={input}
               onChange={handleInputChange}
+              placeholder="Search..."
               required
             />
             <label className="label-icon" htmlFor="search">
