@@ -29,7 +29,7 @@ const Logs = ({ getLogs, logs: { list: logs, loading, searchLog } }) => {
       {!loading && filtered.length === 0 ? (
         <p className="center">No logs to show...</p>
       ) : (
-        filtered.map((log) => <LogItem key={log.id} log={log} />)
+        filtered.map((log) => <LogItem key={log._id} log={log} />)
       )}
     </ul>
   );

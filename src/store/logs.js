@@ -60,7 +60,7 @@ export const {
 
 export default slice.reducer;
 
-const url = "/logs";
+const url = "http://localhost:8000/api/logs";
 
 export const getLogs = () =>
   apiCallBegan({
@@ -80,14 +80,14 @@ export const addLog = (log) =>
 
 export const deleteLog = (id) =>
   apiCallBegan({
-    url: `/logs/${id}`,
+    url: `${url}/${id}`,
     method: "delete",
     onSuccess: logDeleted.type,
   });
 
 export const editLog = (log) =>
   apiCallBegan({
-    url: `/logs/${log.id}`,
+    url: `${url}/${log._id}`,
     method: "put",
     data: log,
     onSuccess: logEdited.type,

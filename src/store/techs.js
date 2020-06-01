@@ -24,7 +24,7 @@ const slice = createSlice({
       techs.list.push(action.payload);
     },
     techDeleted: (techs, action) => {
-      const index = techs.list.findIndex((tech) => tech.id === action.payload);
+      const index = techs.list.findIndex((tech) => tech._id === action.payload);
       techs.list.splice(index, 1);
     },
     techLoggedIn: (techs, action) => {
@@ -48,9 +48,11 @@ export const {
   techRegistered,
 } = slice.actions;
 
+const url = "http://localhost:8000/api/techs";
+
 export const getTechs = () =>
   apiCallBegan({
-    url: "/techs",
+    url,
     onStart: techsRequested.type,
     onSuccess: techsReceived.type,
     onError: techRequestFailed.type,
@@ -58,7 +60,7 @@ export const getTechs = () =>
 
 export const addTech = (tech) =>
   apiCallBegan({
-    url: "/techs",
+    url,
     method: "post",
     data: tech,
     onSuccess: techAdded.type,
@@ -66,9 +68,17 @@ export const addTech = (tech) =>
 
 export const deleteTech = (id) =>
   apiCallBegan({
-    url: `techs/${id}`,
+    url: `${url}/${id}`,
     method: "delete",
     onSuccess: techDeleted.type,
+  });
+
+export const loggingTech = (tech) =>
+  apiCallBegan({
+    url: "http://localhost:8000/api/auth",
+    method: "post",
+    data: tech,
+    onSuccess: techLoggedIn.type,
   });
 
 //   Selectors

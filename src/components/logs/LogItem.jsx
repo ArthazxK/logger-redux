@@ -8,7 +8,7 @@ const LogItem = ({ log }) => {
   const dispatch = useDispatch();
 
   const onDelete = () => {
-    dispatch(deleteLog(log.id));
+    dispatch(deleteLog(log._id));
     M.toast({ html: "Log Deleted." });
   };
   const addCurrent = () => dispatch(currentAdded(log));
@@ -26,8 +26,8 @@ const LogItem = ({ log }) => {
         </a>
         <br />
         <span className="grey-text">
-          <span className="black-text">ID #{log.id}</span> last updated by{" "}
-          <span className="black-text">{log.tech}</span> on{" "}
+          <span className="black-text">ID #{log._id}</span> last updated by{" "}
+          <span className="black-text">{log.tech.name}</span> on{" "}
           <Moment format="MMMM Do YYYY, h:mm:ss a">{log.date}</Moment>
         </span>
         <a href="#!" className="secondary-content">
