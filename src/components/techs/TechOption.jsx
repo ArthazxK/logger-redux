@@ -6,7 +6,7 @@ const TechOption = () => {
   const techs = useSelector(selectTechsList);
 
   return techs.map((tech) => (
-    <option key={tech._id} value={`${tech.name}`}>
+    <option key={tech._id} value={tech._id}>
       {tech.name}
     </option>
   ));

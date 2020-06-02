@@ -5,12 +5,12 @@ import { getTechs, selectTechs } from "../../store/techs";
 
 const TechListModal = () => {
   const dispatch = useDispatch();
+  const data = useSelector(selectTechs);
 
   useEffect(() => {
     dispatch(getTechs());
   }, []);
 
-  const data = useSelector(selectTechs);
   const { loading, list: techs } = data;
 
   return (

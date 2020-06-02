@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import LogItem from "./LogItem";
 import Preloader from "../layout/Preloader";
-import { connect } from "react-redux";
-import { getLogs } from "../../store/logs";
+import { getLogs, logsSelector } from "../../store/logs";
 
-const Logs = ({ getLogs, logs: { list: logs, loading, searchLog } }) => {
+const Logs = () => {
+  const dispatch = useDispatch();
+  const allLogs = useSelector(logsSelector);
+
   useEffect(() => {
-    getLogs();
+    dispatch(getLogs());
   }, []);
+
+  const { list: logs, loading, searchLog } = allLogs;
 
   if (loading) {
     return <Preloader />;
@@ -35,12 +40,4 @@ const Logs = ({ getLogs, logs: { list: logs, loading, searchLog } }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getLogs: () => dispatch(getLogs()),
-});
-
-const mapStateToProps = (state) => ({
-  logs: state.entities.logs,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Logs);
+export default Logs;

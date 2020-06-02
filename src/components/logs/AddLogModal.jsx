@@ -15,12 +15,10 @@ const AddLogModal = () => {
   const onSubmit = () => {
     if (message === "" || tech === "")
       return M.toast({ html: "Please enter a message and tech" });
-    const date = Date.now();
     const newLog = {
       message,
       tech,
       attention,
-      date,
     };
 
     M.toast({ html: `Log added by ${tech}` });

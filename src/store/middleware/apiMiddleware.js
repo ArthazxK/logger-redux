@@ -1,6 +1,9 @@
-import { useDispatch } from "react-redux";
 import axios from "axios";
 import { apiCallBegan, apiCallSuccess, apiCallFailed } from "../api";
+import { getJWT } from "../../services/auth";
+import M from "materialize-css/dist/js/materialize.min.js";
+
+axios.defaults.headers.common["x-auth-token"] = getJWT();
 
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type !== apiCallBegan.type) return next(action);
@@ -28,13 +31,15 @@ const api = ({ dispatch }) => (next) => async (action) => {
     });
     // General
     dispatch(apiCallSuccess(res.data));
+
     // Specific
     if (onSuccess) dispatch({ type: onSuccess, payload: res.data });
   } catch (error) {
     // General
     dispatch(apiCallFailed(error.message));
     // Especific
-    if (onError) dispatch({ type: onError, payload: error.message });
+    M.toast({ html: error.response.data, classes: "red" });
+    if (onError) dispatch({ type: onError, payload: error.response.data });
   }
 };
 

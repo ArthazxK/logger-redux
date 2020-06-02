@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
+import { createSelector } from "reselect";
 
 // Reducer
 
@@ -29,12 +30,16 @@ const slice = createSlice({
     },
 
     logDeleted: (logs, action) => {
-      const index = logs.list.findIndex((log) => log.id === action.payload);
+      const index = logs.list.findIndex(
+        (log) => log._id === action.payload._id
+      );
       logs.list.splice(index, 1);
     },
 
     logEdited: (logs, action) => {
-      const index = logs.list.findIndex((log) => log.id === action.payload.id);
+      const index = logs.list.findIndex(
+        (log) => log._id === action.payload._id
+      );
       logs.list[index] = action.payload;
     },
 
@@ -90,10 +95,16 @@ export const editLog = (log) =>
   apiCallBegan({
     url: `${url}/${log._id}`,
     method: "put",
-    data: log,
+    data: {
+      tech: log.tech,
+      message: log.message,
+      attention: log.attention,
+    },
     onSuccess: logEdited.type,
   });
 
 // Selectors
 
 export const selectCurrent = (state) => state.entities.logs.current;
+
+export const logsSelector = (state) => state.entities.logs;

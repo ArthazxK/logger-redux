@@ -12,7 +12,7 @@ const EditLogModal = () => {
     if (!current) return;
     setMessage(current.message);
     setAttention(current.attention);
-    setTech(current.tech);
+    setTech(current.tech._id);
   }, [current]);
 
   const [message, setMessage] = useState("");
@@ -28,9 +28,7 @@ const EditLogModal = () => {
       message,
       tech,
       attention,
-      date: Date.now(),
     };
-
     dispatch(editLog(updatedLog));
     M.toast({ html: `Edited by ${tech} ` });
 
@@ -39,6 +37,8 @@ const EditLogModal = () => {
     setAttention(false);
     setTech("");
   };
+
+  console.log(tech);
 
   return (
     <div id="edit-log-modal" className="modal" style={modalStyle}>

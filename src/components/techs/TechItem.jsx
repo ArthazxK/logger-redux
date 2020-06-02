@@ -6,13 +6,13 @@ import M from "materialize-css/dist/js/materialize.min.js";
 const TechItem = ({ tech }) => {
   const dispatch = useDispatch();
   const onDelete = () => {
-    dispatch(deleteTech(tech.id));
+    dispatch(deleteTech(tech._id));
     M.toast({ html: "Tech deleted." });
   };
   return (
     <li className="collection-item">
       <div>
-        {tech.firstName} {tech.lastName}
+        {tech.name}
         <a href="#!" className="secondary-content">
           {" "}
           <i onClick={onDelete} className="material-icons grey-text">

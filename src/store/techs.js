@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
 import jwtDecode from "jwt-decode";
-import { useDispatch } from "react-redux";
+import { getJWT } from "../services/auth";
 
 const slice = createSlice({
   name: "techs",
@@ -92,7 +92,7 @@ export const loggingTech = (tech) =>
   });
 
 export const getCurrentTech = () => {
-  const jwt = localStorage.getItem("token");
+  const jwt = getJWT();
   if (!jwt) return null;
   const decoded = jwtDecode(jwt);
   return decoded;
