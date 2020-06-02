@@ -22,7 +22,7 @@ const Logs = () => {
     ? logs.filter(
         (log) =>
           log.message.toLowerCase().includes(searchLog.toLowerCase()) ||
-          log.tech.toLowerCase().includes(searchLog.toLowerCase())
+          log.tech.name.toLowerCase().includes(searchLog.toLowerCase())
       )
     : logs;
 
