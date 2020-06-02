@@ -21,7 +21,7 @@ const useForm = ({ initialData, onSubmit, schema }) => {
     if (errors !== null) return setErrors(errors);
 
     onSubmit(data);
-
+    setData(initialData);
     setErrors(null);
   };
   return {

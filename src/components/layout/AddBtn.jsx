@@ -1,6 +1,16 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentTech, techLoggedOut } from "../../store/techs";
 
 const AddBtn = () => {
+  const dispatch = useDispatch();
+  const currentTech = useSelector(selectCurrentTech);
+
+  const handleLogOut = () => {
+    dispatch(techLoggedOut());
+    window.location = "/";
+  };
+
   return (
     <div className="fixed-action-btn">
       <a
@@ -25,11 +35,22 @@ const AddBtn = () => {
         <li>
           <a
             href="#add-tech-modal"
-            className="btn-floating red modal-trigger tooltipped"
+            className="btn-floating orange modal-trigger tooltipped"
             data-position="left"
             data-tooltip="Add Tech"
           >
             <i className="material-icons">person_add</i>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#!"
+            className="btn-floating red tooltipped"
+            data-position="left"
+            data-tooltip="Log Out"
+            onClick={handleLogOut}
+          >
+            <i className="material-icons">exit_to_app</i>
           </a>
         </li>
       </ul>

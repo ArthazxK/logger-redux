@@ -35,6 +35,10 @@ const slice = createSlice({
       const tech = jwtDecode(action.payload);
       techs.currentTech = tech;
     },
+    techLoggedOut: (techs, action) => {
+      localStorage.removeItem("token");
+      techs.currentTech = null;
+    },
     currentTechAdded: (techs, action) => {
       techs.currentTech = action.payload;
     },
@@ -55,6 +59,7 @@ export const {
   techLoggedIn,
   techRegistered,
   currentTechAdded,
+  techLoggedOut,
 } = slice.actions;
 
 const url = "http://localhost:8000/api/techs";
