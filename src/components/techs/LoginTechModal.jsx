@@ -3,7 +3,7 @@ import useForm from "../common/useForm";
 import { useDispatch } from "react-redux";
 import Joi from "joi-browser";
 import M from "materialize-css/dist/js/materialize.min.js";
-import { techLoggedIn } from "../../store/techs";
+import { loggingTech } from "../../store/techs";
 import { validate } from "../../utils/validation";
 
 const LoginTechModal = () => {
@@ -18,9 +18,7 @@ const LoginTechModal = () => {
       password: "",
     },
     onSubmit(data) {
-      dispatch(techLoggedIn(data));
-
-      M.toast({ html: "Logged In", classes: "green" });
+      dispatch(loggingTech(data));
     },
     schema,
   });

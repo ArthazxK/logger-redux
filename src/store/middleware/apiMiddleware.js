@@ -1,10 +1,19 @@
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { apiCallBegan, apiCallSuccess, apiCallFailed } from "../api";
 
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type !== apiCallBegan.type) return next(action);
 
-  const { url, method, data, onStart, onSuccess, onError } = action.payload;
+  const {
+    url,
+    method,
+    data,
+    onStart,
+    onSuccess,
+    onError,
+    header,
+  } = action.payload;
 
   if (onStart) dispatch({ type: onStart });
 

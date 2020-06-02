@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
+import jwtDecode from "jwt-decode";
+import { useDispatch } from "react-redux";
 
 const slice = createSlice({
   name: "techs",
@@ -15,6 +17,7 @@ const slice = createSlice({
     },
     techRequestFailed: (techs, action) => {
       techs.loading = false;
+      techs.error = action.payload;
     },
     techsReceived: (techs, action) => {
       techs.list = action.payload;
@@ -28,6 +31,11 @@ const slice = createSlice({
       techs.list.splice(index, 1);
     },
     techLoggedIn: (techs, action) => {
+      localStorage.setItem("token", action.payload);
+      const tech = jwtDecode(action.payload);
+      techs.currentTech = tech;
+    },
+    currentTechAdded: (techs, action) => {
       techs.currentTech = action.payload;
     },
     techRegistered: (techs, action) => {
@@ -46,6 +54,7 @@ export const {
   techDeleted,
   techLoggedIn,
   techRegistered,
+  currentTechAdded,
 } = slice.actions;
 
 const url = "http://localhost:8000/api/techs";
@@ -79,8 +88,15 @@ export const loggingTech = (tech) =>
     method: "post",
     data: tech,
     onSuccess: techLoggedIn.type,
+    onError: techRequestFailed.type,
   });
 
+export const getCurrentTech = () => {
+  const jwt = localStorage.getItem("token");
+  if (!jwt) return null;
+  const decoded = jwtDecode(jwt);
+  return decoded;
+};
 //   Selectors
 
 export const selectTechs = (state) => state.entities.techs;

@@ -18,6 +18,7 @@ const slice = createSlice({
     },
     logsRequestFailed: (logs, action) => {
       logs.loading = false;
+      logs.error = action.payload;
     },
     logsReceived: (logs, action) => {
       logs.list = action.payload;
