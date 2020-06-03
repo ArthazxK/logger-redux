@@ -3,7 +3,7 @@ import useForm from "../common/useForm";
 import { useDispatch } from "react-redux";
 import Joi from "joi-browser";
 import M from "materialize-css/dist/js/materialize.min.js";
-import { techRegistered } from "../../store/techs";
+import { registerTech } from "../../store/techs";
 import { validate } from "../../utils/validation";
 
 const TechRegisterModal = () => {
@@ -20,7 +20,7 @@ const TechRegisterModal = () => {
       name: "",
     },
     onSubmit(data) {
-      dispatch(techRegistered(data));
+      dispatch(registerTech(data));
       M.toast({ html: "Registered", classes: "green" });
     },
     schema,

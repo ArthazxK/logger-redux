@@ -1,6 +1,5 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect, Fragment } from "react";
 import { Provider } from "react-redux";
-import { useDispatch } from "react-redux";
 
 import { getCurrentTech, currentTechAdded } from "./store/techs";
 
@@ -23,13 +22,12 @@ import TechRegisterModal from "./components/techs/TechRegisterModal";
 
 const App = () => {
   const store = configureStore();
-
   useEffect(() => {
     // Init Materialize JS
     M.AutoInit();
     const currentTech = getCurrentTech();
     store.dispatch(currentTechAdded(currentTech));
-  }, []);
+  }, [store]);
 
   return (
     <Provider store={store}>

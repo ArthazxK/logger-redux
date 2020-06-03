@@ -1,10 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentTech, techLoggedOut } from "../../store/techs";
+import { useDispatch } from "react-redux";
+import { getCurrentTech, techLoggedOut } from "../../store/techs";
 
 const AddBtn = () => {
   const dispatch = useDispatch();
-  const currentTech = useSelector(selectCurrentTech);
+
+  const currentTech = getCurrentTech();
 
   const handleLogOut = () => {
     dispatch(techLoggedOut());
@@ -32,16 +33,20 @@ const AddBtn = () => {
             <i className="material-icons">person</i>
           </a>
         </li>
-        <li>
-          <a
-            href="#add-tech-modal"
-            className="btn-floating orange modal-trigger tooltipped"
-            data-position="left"
-            data-tooltip="Add Tech"
-          >
-            <i className="material-icons">person_add</i>
-          </a>
-        </li>
+
+        {currentTech && currentTech.isAdmin && (
+          <li>
+            <a
+              href="#add-tech-modal"
+              className="btn-floating orange modal-trigger tooltipped"
+              data-position="left"
+              data-tooltip="Add Tech"
+            >
+              <i className="material-icons">person_add</i>
+            </a>
+          </li>
+        )}
+
         <li>
           <a
             href="#!"

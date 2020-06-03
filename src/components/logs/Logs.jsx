@@ -10,7 +10,7 @@ const Logs = () => {
 
   useEffect(() => {
     dispatch(getLogs());
-  }, []);
+  }, [dispatch]);
 
   const { list: logs, loading, searchLog } = allLogs;
 

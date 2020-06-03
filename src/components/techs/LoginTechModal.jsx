@@ -2,7 +2,6 @@ import React from "react";
 import useForm from "../common/useForm";
 import { useDispatch } from "react-redux";
 import Joi from "joi-browser";
-import M from "materialize-css/dist/js/materialize.min.js";
 import { loggingTech } from "../../store/techs";
 import { validate } from "../../utils/validation";
 

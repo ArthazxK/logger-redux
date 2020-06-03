@@ -8,15 +8,7 @@ axios.defaults.headers.common["x-auth-token"] = getJWT();
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type !== apiCallBegan.type) return next(action);
 
-  const {
-    url,
-    method,
-    data,
-    onStart,
-    onSuccess,
-    onError,
-    header,
-  } = action.payload;
+  const { url, method, data, onStart, onSuccess, onError } = action.payload;
 
   if (onStart) dispatch({ type: onStart });
 
@@ -30,6 +22,10 @@ const api = ({ dispatch }) => (next) => async (action) => {
       data,
     });
     // General
+    const jwt = res.headers["x-auth-token"];
+    if (jwt) {
+      localStorage.setItem("token", jwt);
+    }
     dispatch(apiCallSuccess(res.data));
 
     // Specific

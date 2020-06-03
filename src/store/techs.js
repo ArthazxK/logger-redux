@@ -34,6 +34,7 @@ const slice = createSlice({
       localStorage.setItem("token", action.payload);
       const tech = jwtDecode(action.payload);
       techs.currentTech = tech;
+      window.location = "/";
     },
     techLoggedOut: (techs, action) => {
       localStorage.removeItem("token");
@@ -44,6 +45,7 @@ const slice = createSlice({
     },
     techRegistered: (techs, action) => {
       techs.currentTech = action.payload;
+      window.location = "/";
     },
   },
 });
@@ -96,12 +98,21 @@ export const loggingTech = (tech) =>
     onError: techRequestFailed.type,
   });
 
+export const registerTech = (tech) =>
+  apiCallBegan({
+    url,
+    method: "post",
+    data: tech,
+    onSuccess: techRegistered.type,
+  });
+
 export const getCurrentTech = () => {
   const jwt = getJWT();
   if (!jwt) return null;
   const decoded = jwtDecode(jwt);
   return decoded;
 };
+
 //   Selectors
 
 export const selectTechs = (state) => state.entities.techs;

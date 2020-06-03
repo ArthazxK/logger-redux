@@ -9,7 +9,7 @@ const TechListModal = () => {
 
   useEffect(() => {
     dispatch(getTechs());
-  }, []);
+  }, [dispatch]);
 
   const { loading, list: techs } = data;
 
