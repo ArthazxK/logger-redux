@@ -28,9 +28,9 @@ const EditLogModal = () => {
       message,
       tech,
       attention,
+      date: Date.now(),
     };
     dispatch(editLog(updatedLog));
-    M.toast({ html: `Edited by ${tech} ` });
 
     // Clear fields
     setMessage("");

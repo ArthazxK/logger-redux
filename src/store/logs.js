@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
+import M from "materialize-css/dist/js/materialize.min.js";
 
 // Reducer
 
@@ -33,6 +34,7 @@ const slice = createSlice({
         (log) => log._id === action.payload._id
       );
       logs.list.splice(index, 1);
+      M.toast({ html: "Log Deleted." });
     },
 
     logEdited: (logs, action) => {
@@ -40,6 +42,7 @@ const slice = createSlice({
         (log) => log._id === action.payload._id
       );
       logs.list[index] = action.payload;
+      M.toast({ html: `Log Updated by ${action.payload.tech.name}` });
     },
 
     logSearched: (logs, action) => {
@@ -98,6 +101,7 @@ export const editLog = (log) =>
       tech: log.tech,
       message: log.message,
       attention: log.attention,
+      date: log.date,
     },
     onSuccess: logEdited.type,
   });

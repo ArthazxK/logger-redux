@@ -1,6 +1,5 @@
 import React from "react";
 import Moment from "react-moment";
-import M from "materialize-css/dist/js/materialize.min.js";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteLog, currentAdded } from "../../store/logs";
 import { selectCurrentTech } from "../../store/techs.js";
@@ -10,8 +9,7 @@ const LogItem = ({ log }) => {
   const currentTech = useSelector(selectCurrentTech);
 
   const onDelete = () => {
-    dispatch(deleteLog(log._id));
-    M.toast({ html: "Log Deleted." });
+    const x = dispatch(deleteLog(log._id));
   };
   const addCurrent = () => dispatch(currentAdded(log));
   return (
