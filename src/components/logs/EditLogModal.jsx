@@ -38,8 +38,6 @@ const EditLogModal = () => {
     setTech("");
   };
 
-  console.log(tech);
-
   return (
     <div id="edit-log-modal" className="modal" style={modalStyle}>
       <div className="modal-content">

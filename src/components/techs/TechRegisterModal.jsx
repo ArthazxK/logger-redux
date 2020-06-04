@@ -2,12 +2,12 @@ import React from "react";
 import useForm from "../common/useForm";
 import { useDispatch } from "react-redux";
 import Joi from "joi-browser";
-import M from "materialize-css/dist/js/materialize.min.js";
 import { registerTech } from "../../store/techs";
 import { validate } from "../../utils/validation";
 
 const TechRegisterModal = () => {
   const dispatch = useDispatch();
+
   const schema = {
     username: Joi.string().email().min(5).max(30).required().label("Username"),
     password: Joi.string().min(5).max(30).required().label("Password"),
@@ -21,7 +21,6 @@ const TechRegisterModal = () => {
     },
     onSubmit(data) {
       dispatch(registerTech(data));
-      M.toast({ html: "Registered", classes: "green" });
     },
     schema,
   });
