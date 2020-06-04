@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
 import jwtDecode from "jwt-decode";
 import { getJWT } from "../services/auth";
+import M from "materialize-css/dist/js/materialize.min.js";
 
 const slice = createSlice({
   name: "techs",
@@ -27,8 +28,11 @@ const slice = createSlice({
       techs.list.push(action.payload);
     },
     techDeleted: (techs, action) => {
-      const index = techs.list.findIndex((tech) => tech._id === action.payload);
+      const index = techs.list.findIndex(
+        (tech) => tech._id === action.payload._id
+      );
       techs.list.splice(index, 1);
+      M.toast({ html: `${action.payload.name} deleted`, classes: "green" });
     },
     techLoggedIn: (techs, action) => {
       localStorage.setItem("token", action.payload);

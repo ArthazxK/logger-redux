@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteTech } from "../../store/techs";
-import M from "materialize-css/dist/js/materialize.min.js";
 import { getCurrentTech } from "../../store/techs.js";
 
 const TechItem = ({ tech }) => {
@@ -10,7 +9,6 @@ const TechItem = ({ tech }) => {
   const currentTech = getCurrentTech();
   const onDelete = () => {
     dispatch(deleteTech(tech._id));
-    M.toast({ html: "Tech deleted." });
   };
   return (
     <li className="collection-item">

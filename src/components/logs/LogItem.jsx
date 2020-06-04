@@ -9,7 +9,7 @@ const LogItem = ({ log }) => {
   const currentTech = useSelector(selectCurrentTech);
 
   const onDelete = () => {
-    const x = dispatch(deleteLog(log._id));
+    dispatch(deleteLog(log._id));
   };
   const addCurrent = () => dispatch(currentAdded(log));
   return (
