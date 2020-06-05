@@ -68,7 +68,7 @@ export const {
 
 export default slice.reducer;
 
-const url = "http://localhost:8000/api/logs";
+const url = "https://it-logger-back-end.herokuapp.com/api/logs";
 
 export const getLogs = () =>
   apiCallBegan({

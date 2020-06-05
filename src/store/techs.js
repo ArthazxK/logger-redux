@@ -68,7 +68,7 @@ export const {
   techLoggedOut,
 } = slice.actions;
 
-const url = "http://localhost:8000/api/techs";
+const url = "https://it-logger-back-end.herokuapp.com/api/techs";
 
 export const getTechs = () =>
   apiCallBegan({
@@ -95,7 +95,7 @@ export const deleteTech = (id) =>
 
 export const loggingTech = (tech) =>
   apiCallBegan({
-    url: "http://localhost:8000/api/auth",
+    url: "https://it-logger-back-end.herokuapp.com/api/auth",
     method: "post",
     data: tech,
     onSuccess: techLoggedIn.type,

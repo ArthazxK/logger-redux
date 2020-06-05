@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Joi from "joi-browser";
 import { addTech } from "../../store/techs";
 import { useDispatch } from "react-redux";
